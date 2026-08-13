@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Three unlocks: debugging an infra incident with an AI agent, one new data source at a time"
-date: 2026-08-13 04:00:00 -0700
+date: 2026-08-13 00:00:00 +0000
 categories: [debugging, ai-agents, infra]
 ---
 
