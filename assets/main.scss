@@ -1,0 +1,269 @@
+---
+---
+
+// ---- Intel-inspired brand palette (public brand colors) ----
+$intel-blue: #0068b5;
+$intel-blue-dark: #00285a;
+$intel-cyan: #00c7fd;
+$intel-gray-900: #1e1e1e;
+$intel-gray-700: #4a4a4a;
+$intel-gray-500: #6b7280;
+$intel-gray-200: #e5e7eb;
+$intel-gray-100: #f3f4f6;
+
+// ---- Minima variable overrides (must precede the minima import) ----
+$brand-color:       $intel-blue !default;
+$brand-color-light: lighten($intel-blue, 35%) !default;
+$brand-color-dark:  darken($intel-blue, 25%) !default;
+
+$text-color:        $intel-gray-900 !default;
+$background-color:  #ffffff !default;
+
+$grey-color:         $intel-gray-500 !default;
+$grey-color-light:   $intel-gray-100 !default;
+$grey-color-dark:    $intel-gray-700 !default;
+
+$content-width:      900px !default;
+
+@import "minima";
+
+// ---------------------------------------------------------------
+// Header — Intel navy bar
+// ---------------------------------------------------------------
+.site-header {
+  background: $intel-blue-dark;
+  border-top: none;
+  border-bottom: 3px solid $intel-cyan;
+}
+
+.site-title,
+.site-title:visited {
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+.site-nav .page-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+
+  &:hover {
+    color: #ffffff !important;
+  }
+}
+
+.site-nav .menu-icon > svg path {
+  fill: #ffffff;
+}
+
+// ---------------------------------------------------------------
+// Links & accents
+// ---------------------------------------------------------------
+a {
+  color: $intel-blue;
+
+  &:hover {
+    color: $intel-blue-dark;
+  }
+}
+
+// ---------------------------------------------------------------
+// Breadcrumb
+// ---------------------------------------------------------------
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: $intel-gray-500;
+  margin-bottom: 2em;
+
+  a {
+    color: $intel-gray-500;
+    text-decoration: none;
+
+    &:hover {
+      color: $intel-blue;
+    }
+  }
+
+  .crumb-sep {
+    margin: 0 0.5em;
+    color: $intel-gray-200;
+  }
+
+  .crumb-current {
+    color: $intel-gray-900;
+    font-weight: 500;
+    max-width: 32em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+// ---------------------------------------------------------------
+// Post hero
+// ---------------------------------------------------------------
+.post-hero {
+  margin-bottom: 2.5em;
+}
+
+.post-title {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: $intel-gray-900;
+  margin-bottom: 0.6em;
+
+  @media screen and (max-width: 600px) {
+    font-size: 30px;
+  }
+}
+
+.post-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid $intel-gray-200;
+  font-size: 14px;
+  color: $intel-gray-700;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: $intel-blue;
+  }
+}
+
+// ---------------------------------------------------------------
+// Prose / article body
+// ---------------------------------------------------------------
+.post-content,
+.prose {
+  font-size: 18px;
+  line-height: 1.75;
+  color: $intel-gray-900;
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 1.8em;
+    margin-bottom: 0.6em;
+    color: $intel-gray-900;
+    scroll-margin-top: 20px;
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  p {
+    margin-bottom: 1.4em;
+  }
+
+  a {
+    text-decoration: underline;
+    text-decoration-color: $brand-color-light;
+    text-underline-offset: 2px;
+  }
+
+  blockquote {
+    border-left: 4px solid $intel-cyan;
+    background: $intel-gray-100;
+    color: $intel-gray-700;
+    padding: 0.8em 1.2em;
+    font-style: normal;
+    border-radius: 0 6px 6px 0;
+  }
+
+  code {
+    background: $intel-gray-100;
+    color: $intel-blue-dark;
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  pre {
+    background: $intel-gray-900;
+    border-radius: 8px;
+    padding: 1.2em;
+
+    code {
+      background: none;
+      color: #f3f4f6;
+      padding: 0;
+    }
+  }
+
+  ul,
+  ol {
+    margin-bottom: 1.4em;
+    padding-left: 1.5em;
+  }
+
+  li {
+    margin-bottom: 0.4em;
+  }
+
+  img {
+    border-radius: 8px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid $intel-gray-200;
+    margin: 2.5em 0;
+  }
+}
+
+// ---------------------------------------------------------------
+// Home page — post list as cards
+// ---------------------------------------------------------------
+.home {
+  .post-list {
+    list-style: none;
+    margin-left: 0;
+
+    li {
+      padding: 1.5em 0;
+      border-bottom: 1px solid $intel-gray-200;
+
+      &:first-child {
+        padding-top: 0.5em;
+      }
+    }
+  }
+
+  .post-link {
+    font-size: 22px;
+    font-weight: 700;
+    color: $intel-gray-900;
+
+    &:hover {
+      color: $intel-blue;
+    }
+  }
+
+  .post-meta {
+    color: $intel-gray-500;
+  }
+}
+
+// ---------------------------------------------------------------
+// Footer
+// ---------------------------------------------------------------
+.site-footer {
+  background: $intel-gray-100;
+  border-top: 3px solid $intel-cyan;
+}
