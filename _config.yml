@@ -1,0 +1,13 @@
+theme: minima
+title: Chun Fui Tham
+description: Notes on infra debugging, tooling, and working with AI agents.
+show_excerpts: true
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+plugins:
+  - jekyll-mentions
+  - jekyll-relative-links
