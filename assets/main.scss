@@ -206,6 +206,24 @@ a {
     }
   }
 
+  // Mermaid diagrams render as SVG inside <pre class="mermaid">, not code —
+  // override the dark code-block look and let the diagram render at its
+  // natural (larger) size instead of being squeezed to fit the content
+  // column (mermaid.initialize sets flowchart.useMaxWidth: false to match).
+  pre.mermaid {
+    background: transparent;
+    border: 1px solid $intel-gray-200;
+    border-radius: 8px;
+    padding: 1.5em;
+    text-align: center;
+    overflow-x: auto;
+
+    svg {
+      max-width: none;
+      height: auto;
+    }
+  }
+
   ul,
   ol {
     margin-bottom: 1.4em;

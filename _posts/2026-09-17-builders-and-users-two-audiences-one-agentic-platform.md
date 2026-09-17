@@ -54,7 +54,7 @@ flowchart LR
 
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true });
+  mermaid.initialize({ startOnLoad: true, flowchart: { useMaxWidth: false }, themeVariables: { fontSize: '18px' } });
 </script>
 
 I enjoy this part of the work honestly — not just the debugging, but the act
@@ -163,7 +163,7 @@ flowchart TD
 
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true });
+  mermaid.initialize({ startOnLoad: true, flowchart: { useMaxWidth: false }, themeVariables: { fontSize: '18px' } });
 </script>
 
 ## Where this leaves the platform strategy
