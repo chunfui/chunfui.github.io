@@ -75,19 +75,28 @@ that only appeals to a specific kind of person.
 Some people are builders. They'll happily sit with an agent, guide it through
 a rough patch, and enjoy watching `agent.md` get smarter with every session.
 But plenty of people are just users — and that's a completely legitimate way
-to want to work. They expect an AI tool to *already* do the thing, not to be
-handed a blank prompt and told "go build your own dashboard generator."
+to want to work. They aren't looking to *explore* anything with Copilot. They
+want to type a request and be handed a working result.
 
-A user might say something like: "This is my regression result area — the
-results are separated into folders named after the flow, and each folder has
-a `flow_name.pass` or `flow_name.fail` file. I want a CSV that combines all
-the run results, and an HTML dashboard showing pass/fail status per block.
-Can you guide me through this?"
+Here's the twist: the tool they're waiting for already exists — they just
+don't know it. A user could type this into GHCP CLI today: "This is my
+regression result area — the results are separated into folders named after
+the flow, and each folder has a `flow_name.pass` or `flow_name.fail` file. I
+want a CSV that combines all the run results, and an HTML dashboard showing
+pass/fail status per block. Can you guide me through this?" — and it works,
+right now, no setup beyond what's already installed.
 
-That prompt works today, right now, in plain GHCP CLI. A builder hears that
-example and gets excited about the possibilities. A user just wants the
-dashboard, and doesn't especially want to know that MCP servers, skill files,
-and knowledge bases were the machinery that made it happen.
+But that's not what a user *expects* "an AI tool" to look like. They don't
+picture themselves writing a paragraph like that from scratch; they picture
+opening something and being asked questions: "Where is your workspace?" →
+Copilot reads the folder structure → "Where are the pass/fail reports?" →
+"How do you want pass/fail status represented?" — and out comes the
+dashboard. Both paths get to the same place. The one-shot prompt above and a
+polished wizard-style agent that asks the same questions one at a time
+produce an identical result. The difference is entirely in expectation, not
+capability: a builder is happy to discover the prompt that works. A user
+expects Copilot to ask *them* the questions, and doesn't expect to have to
+know the prompt exists in the first place.
 
 ## Two audiences, two different products
 
