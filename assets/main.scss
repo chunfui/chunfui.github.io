@@ -195,7 +195,6 @@ a {
   }
 
   pre {
-    background: $intel-gray-900;
     border-radius: 8px;
     padding: 1.2em;
 
@@ -205,19 +204,27 @@ a {
       padding: 0;
     }
 
-    // Rouge's default (via the minima @import above) is a light-background
-    // token palette — e.g. .nf/.k/.c1 render as dark red/black/muted-brown,
-    // which is nearly invisible against the dark $intel-gray-900 background
-    // set on this pre block. Re-map the same Rouge token classes to a
-    // dark-background-friendly palette, scoped under .highlight so it wins
-    // on specificity over minima's unscoped `.highlight .nf { ... }` rules.
-    .highlight {
-      background: none;
+    // Rouge wraps highlighted code as <pre class="highlight"><code>...spans.
+    // The "highlight" class lands directly ON this <pre> itself — it is NOT
+    // a separate wrapper element nested inside it. A plain nested selector
+    // here (`.highlight { ... }`) compiles to the descendant combinator
+    // `pre .highlight`, which matches nothing (there's no element with
+    // class "highlight" *inside* the pre — the pre itself just has it) and
+    // silently no-ops. `&.highlight` below instead compiles to the compound
+    // selector `pre.highlight`, which actually matches this element and —
+    // crucially — has enough specificity (2 classes + 1 element) to beat
+    // minima's unscoped `.highlighter-rouge .highlight { background: #eef }`
+    // (2 classes, 0 elements) and its light-theme token colors like
+    // `.highlight .nf { color: #900 }`. Without this, the background stays
+    // minima's light lavender while text silently falls back to this
+    // block's #f3f4f6 — near-white on near-white, i.e. invisible.
+    &.highlight {
+      background: $intel-gray-900;
 
       .c, .cm, .c1, .cs { color: #8b949e; font-style: italic; } // comments
       .k, .kc, .kd, .kn, .kp, .kr, .kt, .o, .ow { color: #ff7b72; font-weight: bold; } // keywords/operators
       .s, .s1, .s2, .sb, .sc, .sd, .se, .sh, .si, .sx, .ss { color: #a5d6ff; } // strings
-      .n, .nv, .vc, .vg, .vi, .bp { color: #f3f4f6; } // names/variables
+      .n, .nv, .vc, .vg, .vi, .bp, .p { color: #f3f4f6; } // names/variables/punctuation
       .nf, .nc { color: #d2a8ff; font-weight: bold; } // function/class names
       .na, .nt { color: #7ee787; } // attributes/tags
       .nb, .no { color: #79c0ff; } // builtins/constants
