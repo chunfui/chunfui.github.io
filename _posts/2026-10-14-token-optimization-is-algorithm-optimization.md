@@ -203,37 +203,42 @@ better.
 ## A three-step maturity model, not a binary choice
 
 Putting all of this together, here's the progression I'd suggest to anyone
-building an agentic workflow, and it's the same progression I used for our
-own CDE release note system — which went from a markdown-only proof of
-concept to a hardened workflow in under two weeks:
+building an agentic workflow. It's the exact progression we used for our own
+CDE release note system:
 
 1. **Write the `agent.md` first.** Let it organize the whole workflow end to
-   end — and notice that part of that workflow will usually already contain
-   fixed scripts (our `stm2gds.csh` wrapper, for example). Watch your token
-   usage while you do this.
-2. **Harden whatever doesn't need inference.** Any step that's deterministic
-   — set subtraction instead of a loop, a `grep`-based log check instead of
-   reading the whole file, a fixed comparison script instead of letting the
-   agent re-derive it — convert to real code with real tests. Watch your
-   token usage drop.
-3. **Move to an AI-application model.** A script that only calls the LLM
-   endpoint at the exact point where inference is actually needed, then
-   handles everything else — API calls, post-processing, reassignment — in
-   plain code.
+   end when you are under a tight deadline. When my colleague Gaurav had to
+   stand up our CDE release note system in about a week, starting with an
+   `agent.md` was the fastest way to map out the steps, test the flow, and
+   bootstrap the system.
+2. **Harden whatever doesn't need inference.** Once a workflow survives its
+   first few production releases, the manual gaps, formatting rules, and
+   token-heavy loops become obvious. At this stage, we asked Gaurav to look
+   at the steps the LLM was performing and begin hardening those
+   deterministic rails into code.
+3. **Graduate out of the LLM entirely (where possible).** For the release
+   note system specifically, Gaurav's hardening process led to a
+   realization: once the workflow logic, data gathering, and formatting
+   rules were completely understood and defined, we didn't actually need
+   semantic inference at all. The entire pipeline was successfully
+   converted into a 100% deterministic, zero-LLM shell utility:
+   `gen_release_note.sh`.
 
-For the release note system specifically, once the markdown-driven version
-proved the workflow out, the next step was `/plan` to turn the steps into a
-proper script-based system, a round of architecture discussion in a
-spec/architecture doc (`mattpocock-skills:grill-me` is genuinely good for
-this — it interviews you on your own design decisions instead of just
-nodding along), `/tdd` to bake test-driven steps into the plan, and then the
-conversion of `agent.md` into `release.py`.
+This is the ultimate optimization. The LLM was a phenomenal tool for rapid
+prototyping and discovering the algorithm under a tight deadline. But once
+the algorithm was discovered, graduating it completely to a standard shell
+script dropped our token cost, execution time, and output drift to exactly
+zero.
 
-In practice, almost every real workflow ends up being a mix of all three
-steps, not a clean progression through them: harden what can be hardened,
-leave genuine inference to the agent, and keep watching the token meter the
-same way you'd watch a profiler. That's the honest answer to Srinivas's
-question — there isn't a single "right approach" that applies uniformly to
+This progression — moving from a rapid markdown prototype to a structured,
+hybrid script, and sometimes graduating out of AI entirely — is how you
+scale systems without letting token costs or output drift get out of hand.
+
+In practice, almost every real workflow ends up being a mix of these steps:
+harden what can be hardened, leave genuine inference to the agent only
+where fuzzy logic is mandatory, and keep watching the token meter the same
+way you'd watch a profiler. That's the honest answer to Srinivas's
+question. There isn't a single "right approach" that applies uniformly to
 every production script. There's a right approach *per piece of the
 workflow*, and the way you find it is the same way engineers have always
 found it: measure what's expensive, and fix the part that's expensive.
