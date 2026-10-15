@@ -25,18 +25,20 @@ programming, wearing a new hat.
 
 ## We've been here before — just swap "tokens" for "wall-clock time"
 
-Here's a script I wrote a while back. It reads an AGS entitlement group,
-"DTP CDE Users," and checks whether each person already has a Perforce
-license in our Common Design Environment. If not, it grants one.
+Here's a script I wrote a while back (the Perforce calls below are
+illustrative wrapper functions, not literal `p4` CLI flags — the point is
+the shape of the loop, not the exact syntax). It reads an AGS entitlement
+group, "DTP CDE Users," and checks whether each person already has a
+Perforce license in our Common Design Environment. If not, it grants one.
 
 ```python
 def check_perforce_license(user):
-    cmd = f"p4 user -l {user}"
-    return run(cmd)  # True/False based on whatever we're checking for
+    # wraps whatever p4 lookup confirms license/group membership for `user`
+    return run(f"p4 ... {user}")
 
 def grant_user_license(user):
-    cmd = f"p4 user -i {user}"
-    run(cmd)
+    # wraps whatever p4 call adds `user` to the licensed group
+    run(f"p4 ... {user}")
 
 user_list = ags.get_users("DTP CDE Users")
 for user in user_list:
@@ -45,11 +47,11 @@ for user in user_list:
 ```
 
 Straightforward. It also took two minutes to run, because with 300 users it
-shells out to `p4 user -l` 300 separate times. So I refactored it:
+shells out to a Perforce lookup 300 separate times. So I refactored it:
 
 ```python
-p4_users = p4.get_users()
-ags_users = ags.get_users("DTP CDE Users")
+p4_users = set(p4.get_users())
+ags_users = set(ags.get_users("DTP CDE Users"))
 
 delta = ags_users - p4_users
 
@@ -57,13 +59,15 @@ for user in delta:
     grant_user_license(user)
 ```
 
-One `p4 users` call instead of 300. The AGS list minus the P4 list gives me
-exactly the set of people who need a license. That script runs in ten
-seconds. Nothing about this refactor involves a token, a model, or an agent
-— it's set subtraction replacing a per-item loop, something every engineer
-learns early. The instinct to go from O(n) calls to O(1) is not new. What's
-new is that we now have a second resource to optimize for besides time:
-tokens. The thinking is identical.
+One `p4 users` call instead of 300. The AGS set minus the P4 set gives me
+exactly the people who need a license. That script runs in ten seconds.
+Nothing about this refactor involves a token, a model, or an agent — it's
+set subtraction replacing a per-item loop, something every engineer learns
+early. More precisely, what changed is the number of *external calls*
+crossing a process/network boundary: 300 subprocess round-trips collapsed
+into one. The instinct to go from O(n) external calls to O(1) is not new.
+What's new is that we now have a second resource to optimize for besides
+time: tokens. The thinking is identical.
 
 ## The 100,000-cell problem
 
@@ -80,22 +84,36 @@ stm2gds --cell cellA --parameter_file=para.txt; stm2oas --cellA ...; oas2spef ..
 ```
 
 one at a time, you're burning a huge number of tokens just generating text
-that's 99% identical across every invocation. My suggestion was simple: tell
-the agent explicitly to write a loop, or give it a wrapper script to call
-once.
+that's 99% identical across every invocation — and it's worth being
+specific about why that's the expensive part: those are *generation*
+tokens, which on most models cost several times more than the input tokens
+used to read a prompt, and don't benefit from prompt caching the way
+repeated instructions do. Generating one loop instead of 100,000 near-copies
+of the same command is the cheap side of that asymmetry, not just a smaller
+number of lines. My suggestion was simple: tell the agent explicitly to
+write a loop, or give it a wrapper script to call once — pushing the
+repetition and filtering down to the worker/tool layer instead of making
+the LLM re-derive it 100,000 times.
 
-```
-foreach cell in cells:
-    cmd = "stm2gds --cell " . cell . " --parameter_file=para.txt; stm2oas " . cell . " --parameter_file=para.txt; oas2spef --some_option1 --some_option2"
+```tcsh
+foreach cell ( $cells )
+    stm2gds --cell $cell --parameter_file=para.txt
+    stm2oas --cell $cell --parameter_file=para.txt
+    oas2spef --some_option1 --some_option2 --cell $cell
+end
 ```
 
 That turns "generate 100,000 near-identical command strings" into "generate
 one loop." Running the actual vendor tools doesn't cost a single token
-either way — when an agent kicks off a long-running job, it's just spawning
-a child process and waiting; whether that job takes one minute or ten days
-makes no difference to token spend. The tokens get burned in how much text
-the agent has to *generate and read*, not in how long the underlying tool
-runs.
+either way, *provided the orchestration runtime is the one waiting* —
+spawning a batch job and getting notified on exit without re-invoking the
+model costs nothing whether the job takes one minute or ten days. (The
+caveat matters: if the agent framework instead polls by re-prompting the
+model every so often to ask "is it done yet?", every one of those check-ins
+does cost tokens — so the zero-cost claim depends on the wait state living
+in the tool/runtime layer, not in a chat loop.) The tokens get burned in how
+much text the agent has to *generate and read*, not in how long the
+underlying tool runs.
 
 Which brings up the second half of that problem: each step needs to check a
 log file before proceeding, and those log files are huge. If you let the
@@ -132,6 +150,17 @@ comparison method once and for all, so I never have to wonder whether the
 agent compared things slightly differently between runs 40 and 41. The
 token cost is close to a wash either way, since the agent would write that
 script regardless — the real win is *determinism*, not tokens.
+
+And in chip design specifically, that win is non-negotiable, not
+optional polish. Sign-off in EDA depends on repeatability: if an LLM is
+regenerating an ad-hoc comparison script on the fly, you've introduced
+silent verification drift between release runs — the same inputs could pass
+differently depending on how the model happened to phrase the comparison
+that day. Hardening that logic into a fixed script isn't just about saving
+tokens; it's what makes the result auditable and reproducible enough to put
+your name on. That's really the decisive answer to Srinivas's question for
+anything touching sign-off quality: the moment a workflow needs to be
+*provably* the same every time, it has already told you it belongs in code.
 
 It's nearly impossible to build an all-markdown, no-code workflow anyway.
 Even in the most "pure agent.md" setup I can think of, the agent still
