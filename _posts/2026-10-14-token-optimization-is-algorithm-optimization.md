@@ -176,12 +176,6 @@ your name on. That's really the decisive answer to Srinivas's question for
 anything touching sign-off quality: the moment a workflow needs to be
 *provably* the same every time, it has already told you it belongs in code.
 
-It's nearly impossible to build an all-markdown, no-code workflow anyway.
-Even in the most "pure agent.md" setup I can think of, the agent still
-writes some throwaway Python in between steps. The question was never
-"code or no code" — it's "which parts of this workflow deserve to be fixed
-in code, and which parts still benefit from a little inference."
-
 And there are cases that run the other way entirely. Take Jira ticket
 triage. You can absolutely write a Python script to classify and reassign
 tickets by component — but it's genuinely hard to maintain, because the
