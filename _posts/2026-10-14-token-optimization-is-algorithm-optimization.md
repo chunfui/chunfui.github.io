@@ -103,6 +103,13 @@ foreach cell ( $cells )
 end
 ```
 
+A terminal-based agent given a wide-open shell is just as likely to assemble
+its own long, fragile pipe of `find`/`awk`/`sed` instead of something this
+clean, which is worse on both axes — more tokens to generate the one-off
+chain, and a brittler result. The point isn't "Python vs. shell vs. tcsh";
+it's that the agent should be pointed at *one* loop or wrapper, however it's
+written, instead of inventing a bespoke pipeline per cell.
+
 That turns "generate 100,000 near-identical command strings" into "generate
 one loop." Running the actual vendor tools doesn't cost a single token
 either way, *provided the orchestration runtime is the one waiting* —
@@ -116,14 +123,17 @@ much text the agent has to *generate and read*, not in how long the
 underlying tool runs.
 
 Which brings up the second half of that problem: each step needs to check a
-log file before proceeding, and those log files are huge. If you let the
-agent read the entire log every single time, you're back to burning tokens
-for no reason. The fix there is just as old as the first one: write a small
-parser, or a skill, that greps for the specific pass/fail criteria the agent
-actually needs, and tell the agent explicitly to use it instead of reading
-raw stdout or the full log file. Most agents will reach for `grep` on their
-own if you don't give them anything else — but spelling it out as a skill
-guarantees it, rather than leaving it to chance.
+log file before proceeding, and in chip design those logs can run into
+gigabytes. Letting an agent stream or read raw stdout from a ten-hour job —
+or worse, tail a live process in an active reasoning loop — is a waste of
+both time and tokens, and it's not how a well-built runtime should behave in
+the first place. The fix is the same systems instinct as always: push the
+evaluation down. Let a local wrapper or tool run the process, check the
+exit code, and grep the log for the specific error signatures that matter,
+then hand the agent a small structured summary — something like
+`{"status": "passed", "errors": 0}` — instead of a raw terminal dump. Most
+agents will reach for `grep` on their own if you give them nothing else, but
+spelling it out as a skill guarantees it instead of leaving it to chance.
 
 So the actual guidance boils down to three things, and none of them require
 deep AI expertise to explain:
@@ -141,15 +151,18 @@ project.
 ## Where agent.md actually wins
 
 Now back to Srinivas's JSON/YAML comparison case. If someone runs that
-comparison a hundred times in one session, the agent will most likely write
-a small Python script once and reuse it for the other ninety-nine — that's
-not actually as wasteful as it sounds. But if I were that user, I'd go one
-step further: harden the comparison into a standalone `comparison.py`, and
-point the agent at it from the skill or `agent.md` file. That fixes the
-comparison method once and for all, so I never have to wonder whether the
-agent compared things slightly differently between runs 40 and 41. The
-token cost is close to a wash either way, since the agent would write that
-script regardless — the real win is *determinism*, not tokens.
+comparison a hundred times in one session, a terminal-based agent is just as
+likely to scrape by with a fragile chain of `jq`, `yq`, and `diff`, parsing
+whatever raw stdout comes back, as it is to write a clean reusable script —
+and the fragile-shell-chain version burns extra tokens just parsing noisy
+terminal output on every single run. Either way, if I were that user, I'd go
+one step further: harden the comparison into a standalone, tested
+`comparison.py`, and expose it to the agent as a single clean tool from the
+skill or `agent.md` file. That fixes the comparison method once and for
+all, so I never have to wonder whether the agent compared things slightly
+differently between runs 40 and 41, and it drops the token cost of parsing
+raw output to near zero. The token cost is close to a wash at best either
+way — the real win is *determinism*, not tokens.
 
 And in chip design specifically, that win is non-negotiable, not
 optional polish. Sign-off in EDA depends on repeatability: if an LLM is
