@@ -72,7 +72,7 @@ time: tokens. The thinking is identical.
 ## The 100,000-cell problem
 
 A colleague from our ProdLib team described an agentic workflow to me
-recently: an agent that hand-holds a `stm → gds/oas → spef` pipeline,
+recently: an agent that hand-holds a `stm → gds/oas → lef → oalibs` pipeline,
 checking log output at each step before deciding whether to proceed. It
 works great — until you realize he has 100,000 cells to run it against for
 his actual daily work.
@@ -80,7 +80,7 @@ his actual daily work.
 If you ask an agent to generate 100,000 individual commands like:
 
 ```shell
-stm2gds --cell cellA --parameter_file=para.txt; stm2oas --cellA ...; oas2spef ...
+stm2gds --cell cellA --parameter_file=para.txt; stm2oas --cellA ...; gds2lef ...; lef2oalibs ...
 ```
 
 one at a time, you're burning a huge number of tokens just generating text
@@ -99,7 +99,8 @@ the LLM re-derive it 100,000 times.
 foreach cell ( $cells )
     stm2gds --cell $cell --parameter_file=para.txt
     stm2oas --cell $cell --parameter_file=para.txt
-    oas2spef --some_option1 --some_option2 --cell $cell
+    gds2lef --cell $cell --parameter_file=para.txt
+    lef2oalibs --cell $cell --parameter_file=para.txt
 end
 ```
 
