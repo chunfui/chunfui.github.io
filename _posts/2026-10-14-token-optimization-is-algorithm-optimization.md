@@ -79,7 +79,7 @@ his actual daily work.
 
 If you ask an agent to generate 100,000 individual commands like:
 
-```
+```tcsh
 stm2gds --cell cellA --parameter_file=para.txt; stm2oas --cellA ...; oas2spef ...
 ```
 
