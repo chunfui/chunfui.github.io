@@ -176,6 +176,16 @@ your name on. That's really the decisive answer to Srinivas's question for
 anything touching sign-off quality: the moment a workflow needs to be
 *provably* the same every time, it has already told you it belongs in code.
 
+It is entirely possible to build a pure "no-code," markdown-only workflow
+where an agent moves data between APIs using purely semantic instructions.
+But the moment that workflow needs to handle complex state, error recovery,
+or high-volume data loops, forcing the LLM to orchestrate the step-by-step
+control flow becomes a liability. The question was never "code or no-code"
+— it's "should the LLM be the engine, or just the driver?" We want plain
+code to handle the rigid, deterministic tracks (loops, retries, data
+extraction), leaving the LLM to step in only when a task genuinely requires
+semantic inference.
+
 And there are cases that run the other way entirely. Take Jira ticket
 triage. You can absolutely write a Python script to classify and reassign
 tickets by component — but it's genuinely hard to maintain, because the
