@@ -79,7 +79,7 @@ his actual daily work.
 
 If you ask an agent to generate 100,000 individual commands like:
 
-```tcsh
+```shell
 stm2gds --cell cellA --parameter_file=para.txt; stm2oas --cellA ...; oas2spef ...
 ```
 
@@ -95,7 +95,7 @@ write a loop, or give it a wrapper script to call once — pushing the
 repetition and filtering down to the worker/tool layer instead of making
 the LLM re-derive it 100,000 times.
 
-```tcsh
+```shell
 foreach cell ( $cells )
     stm2gds --cell $cell --parameter_file=para.txt
     stm2oas --cell $cell --parameter_file=para.txt
