@@ -204,6 +204,28 @@ a {
       color: #f3f4f6;
       padding: 0;
     }
+
+    // Rouge's default (via the minima @import above) is a light-background
+    // token palette — e.g. .nf/.k/.c1 render as dark red/black/muted-brown,
+    // which is nearly invisible against the dark $intel-gray-900 background
+    // set on this pre block. Re-map the same Rouge token classes to a
+    // dark-background-friendly palette, scoped under .highlight so it wins
+    // on specificity over minima's unscoped `.highlight .nf { ... }` rules.
+    .highlight {
+      background: none;
+
+      .c, .cm, .c1, .cs { color: #8b949e; font-style: italic; } // comments
+      .k, .kc, .kd, .kn, .kp, .kr, .kt, .o, .ow { color: #ff7b72; font-weight: bold; } // keywords/operators
+      .s, .s1, .s2, .sb, .sc, .sd, .se, .sh, .si, .sx, .ss { color: #a5d6ff; } // strings
+      .n, .nv, .vc, .vg, .vi, .bp { color: #f3f4f6; } // names/variables
+      .nf, .nc { color: #d2a8ff; font-weight: bold; } // function/class names
+      .na, .nt { color: #7ee787; } // attributes/tags
+      .nb, .no { color: #79c0ff; } // builtins/constants
+      .m, .mf, .mh, .mi, .mo, .il { color: #79c0ff; } // numbers
+      .err { color: #ffa198; background-color: #490202; }
+      .gd { color: #ffa198; background-color: #490202; }
+      .gi { color: #7ee787; background-color: #0f2f17; }
+    }
   }
 
   // Mermaid diagrams render as SVG inside <pre class="mermaid">, not code —
