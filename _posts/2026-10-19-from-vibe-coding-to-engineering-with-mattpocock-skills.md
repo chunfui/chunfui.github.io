@@ -24,13 +24,7 @@ real design flows, where the same request should behave the same way tomorrow.
 
 The new design organizes content by team, publishes it as versioned and
 read-only bundles, and pins each user's workspace to one version. A workspace
-only moves forward when the user explicitly asks it to. Here is the
-architecture diagram, including the parts that are planned but not yet built
-([open full page]({{ "/diagrams/cdeai-architecture.html" | relative_url }})):
-
-<iframe src="{{ "/diagrams/cdeai-architecture.html" | relative_url }}"
-        style="width:100%; height:720px; border:1px solid #444; border-radius:6px;"
-        loading="lazy"></iframe>
+only moves forward when the user explicitly asks it to.
 
 ## The chain
 
