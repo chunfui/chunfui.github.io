@@ -40,5 +40,7 @@ layout: default
       {{ content }}
     </div>
 
+    {% unless page.analytics == false %}{% include analytics.html %}{% endunless %}
+
   </article>
 </div>
