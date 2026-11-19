@@ -46,26 +46,7 @@ it through tmux. So I asked Nami to do exactly that, for every other session.
 It worked on the first serious try, and I promoted Nami from personal
 assistant to Chief of Staff.
 
-<pre class="mermaid">
-flowchart TD
-    O["Me: one prompt window"] --> C["Nami, Chief of Staff"]
-    C --> W1["Worker: domain A"]
-    C --> W2["Worker: domain A, second session"]
-    C --> W3["Worker: domain B"]
-    C --> W4["Worker: domain C"]
-    W1 -. declarations .-> D["Dashboard: Do-next list"]
-    W2 -. declarations .-> D
-    W3 -. declarations .-> D
-    W4 -. declarations .-> D
-    C -. records .-> D
-    D --> O
-    O -. attach and steer when needed .-> W3
-</pre>
-
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true, flowchart: { useMaxWidth: false }, themeVariables: { fontSize: '18px' } });
-</script>
+<img src="{{ '/assets/nami-cos/horizontal-vertical.svg' | relative_url }}" alt="Diagram: you talk to Nami, the Chief of Staff, who holds the horizontal view across domains; each Worker holds a deep vertical context; a dashboard shows the Do-next list." style="width:100%; height:auto; margin: 0.5rem 0 1.5rem;">
 
 ## Horizontal context: what Nami holds
 
@@ -96,6 +77,8 @@ Nami, the Chief of Staff, runs on a frontier model, Opus 5.5. The Workers run on
 split is deliberate. I get to discuss, brainstorm and plan with a stronger
 model, and then confidently let a medium-tier model execute the directions.
 
+<img src="{{ '/assets/nami-cos/plan-execute.svg' | relative_url }}" alt="Diagram: the stronger model plans and writes a brief with explicit Approvals, and the mid-tier model executes the Job." style="width:100%; height:auto; margin: 0.5rem 0 1.5rem;">
+
 The planning is where the strong model earns its cost. Choosing what to do,
 splitting it into Jobs, and deciding which steps are safe and which need my
 yes: that is judgment, and I want the best reasoner on it. Executing a
@@ -115,6 +98,8 @@ In a typical orchestration setup, the sub-agents are short-lived and opaque.
 They spin up, do something, return a result, and disappear. If the result is
 wrong, you only get to guess why.
 
+<img src="{{ '/assets/nami-cos/persistent-vs-opaque.svg' | relative_url }}" alt="Diagram: typical sub-agents are short-lived and return only a result; Workers are persistent sessions with history that can be attached to at any time." style="width:100%; height:auto; margin: 0.5rem 0 1.5rem;">
+
 My Workers are different. Each one is a persistent session in its own tmux
 terminal. It keeps its history, and I can open it any time and read exactly
 what it did and why. That also means a Worker keeps getting better at its
@@ -128,6 +113,8 @@ one prompt window, and Nami dispatches each item to a Worker and gives me a
 summary now and then, or I just look at the dashboard. When one Job needs real
 attention, I conduct it myself: I step into that Worker's terminal, debug it,
 and steer it directly. Nami is a layer on top, not a wall.
+
+<img src="{{ '/assets/nami-cos/orchestrate-conduct.svg' | relative_url }}" alt="Diagram: you orchestrate through Nami for routine jobs and step into a Worker directly to conduct the one that needs attention." style="width:100%; height:auto; margin: 0.5rem 0 1.5rem;">
 
 A normal evening looked like this. I dumped my list into the one prompt
 window, and Nami dispatched:

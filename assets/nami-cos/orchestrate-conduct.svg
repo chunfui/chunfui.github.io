@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 280" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0068b5"/></marker>
+    <marker id="c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#00a6d6"/></marker>
+  </defs>
+  <rect width="860" height="280" rx="14" fill="#f3f4f6"/>
+
+  <rect x="30" y="100" width="120" height="80" rx="12" fill="#1e1e1e"/>
+  <text x="90" y="146" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">You</text>
+
+  <path d="M150 124C200 80 240 70 300 70" fill="none" stroke="#0068b5" stroke-width="3" marker-end="url(#a)"/>
+  <text x="170" y="52" font-size="14" font-weight="700" fill="#0068b5">ORCHESTRATE</text>
+  <rect x="304" y="38" width="170" height="64" rx="12" fill="#0068b5"/>
+  <text x="389" y="66" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">Nami</text>
+  <text x="389" y="86" text-anchor="middle" font-size="12" fill="#cfe8ff">dump it all, get summaries</text>
+
+  <g stroke="#0068b5" stroke-width="2" marker-end="url(#a)">
+    <path d="M474 58L580 42"/><path d="M474 82L580 100"/>
+  </g>
+
+  <path d="M150 156C200 200 330 200 580 190" fill="none" stroke="#00a6d6" stroke-width="3" stroke-dasharray="8 5" marker-end="url(#c)"/>
+  <text x="250" y="236" font-size="14" font-weight="700" fill="#00a6d6">CONDUCT</text>
+  <text x="250" y="256" font-size="12" fill="#4a4a4a">step into a Worker: debug, steer</text>
+
+  <g fill="#fff" stroke="#0068b5" stroke-width="2">
+    <rect x="584" y="22" width="246" height="38" rx="8"/><rect x="584" y="82" width="246" height="38" rx="8"/>
+  </g>
+  <rect x="584" y="150" width="246" height="80" rx="8" fill="#fff" stroke="#00a6d6" stroke-width="3"/>
+  <g font-size="14" font-weight="600" fill="#00285a">
+    <text x="600" y="46">Worker: routine job</text>
+    <text x="600" y="106">Worker: routine job</text>
+    <text x="600" y="184">Worker: needs attention</text>
+  </g>
+  <text x="600" y="206" font-size="12" fill="#4a4a4a">same persistent session, steered by me</text>
+</svg>

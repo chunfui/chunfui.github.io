@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0068b5"/></marker>
+  </defs>
+  <rect width="860" height="300" rx="14" fill="#f3f4f6"/>
+
+  <rect x="24" y="30" width="250" height="200" rx="12" fill="#00285a"/>
+  <text x="44" y="64" font-size="12" font-weight="700" fill="#00c7fd" letter-spacing="1">PLAN</text>
+  <text x="44" y="92" font-size="22" font-weight="700" fill="#fff">Opus 5.5</text>
+  <text x="44" y="114" font-size="13" fill="#cfe8ff">frontier model, Nami</text>
+  <g font-size="14" fill="#fff">
+    <circle cx="48" cy="150" r="3" fill="#00c7fd"/><text x="60" y="155">discuss and brainstorm</text>
+    <circle cx="48" cy="176" r="3" fill="#00c7fd"/><text x="60" y="181">split the work into Jobs</text>
+    <circle cx="48" cy="202" r="3" fill="#00c7fd"/><text x="60" y="207">decide what needs my yes</text>
+  </g>
+
+  <path d="M274 130H322" stroke="#0068b5" stroke-width="2.5" marker-end="url(#a)"/>
+
+  <rect x="326" y="48" width="208" height="164" rx="10" fill="#fff" stroke="#0068b5" stroke-width="2"/>
+  <path d="M326 80V58a10 10 0 0 1 10-10H524a10 10 0 0 1 10 10V80z" fill="#0068b5"/>
+  <text x="430" y="70" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">The brief</text>
+  <g font-size="13" fill="#1e1e1e">
+    <text x="344" y="106">Goal and constraints</text>
+    <text x="344" y="130">Where to look</text>
+    <text x="344" y="154">What done looks like</text>
+  </g>
+  <rect x="344" y="168" width="172" height="30" rx="6" fill="#d9f6ff" stroke="#0068b5"/>
+  <text x="430" y="188" text-anchor="middle" font-size="13" font-weight="700" fill="#00285a">Approvals, explicit</text>
+
+  <path d="M534 130H582" stroke="#0068b5" stroke-width="2.5" marker-end="url(#a)"/>
+
+  <rect x="586" y="30" width="250" height="200" rx="12" fill="#fff" stroke="#0068b5" stroke-width="2"/>
+  <text x="606" y="64" font-size="12" font-weight="700" fill="#0068b5" letter-spacing="1">EXECUTE</text>
+  <text x="606" y="92" font-size="22" font-weight="700" fill="#00285a">Sonnet 5.5</text>
+  <text x="606" y="114" font-size="13" fill="#4a4a4a">mid-tier model, Workers</text>
+  <g font-size="14" fill="#1e1e1e">
+    <circle cx="610" cy="150" r="3" fill="#0068b5"/><text x="622" y="155">runs the Job in its domain</text>
+    <circle cx="610" cy="176" r="3" fill="#0068b5"/><text x="622" y="181">drafts the irreversible steps</text>
+    <circle cx="610" cy="202" r="3" fill="#0068b5"/><text x="622" y="207">reports: done, or my move</text>
+  </g>
+
+  <text x="430" y="272" text-anchor="middle" font-size="15" font-weight="600" fill="#00285a">A good brief is what lets the cheaper model be reliable</text>
+</svg>

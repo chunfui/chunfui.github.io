@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0068b5"/></marker>
+    <linearGradient id="h" x1="0" x2="1"><stop offset="0" stop-color="#00285a"/><stop offset="1" stop-color="#0068b5"/></linearGradient>
+  </defs>
+  <rect width="860" height="420" rx="14" fill="#f3f4f6"/>
+  <rect x="30" y="22" width="130" height="38" rx="19" fill="#1e1e1e"/>
+  <text x="95" y="46" text-anchor="middle" font-size="15" font-weight="600" fill="#fff">You</text>
+  <text x="178" y="46" font-size="13" fill="#4a4a4a">one prompt window</text>
+  <path d="M95 60V92" stroke="#0068b5" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="30" y="94" width="610" height="64" rx="12" fill="#00285a"/>
+  <text x="50" y="122" font-size="17" font-weight="700" fill="#fff">Nami, Chief of Staff</text>
+  <text x="50" y="145" font-size="13" fill="#cfe8ff">HORIZONTAL context: every domain, who waits on whom, what is next</text>
+
+  <g stroke="#0068b5" stroke-width="2" marker-end="url(#a)">
+    <path d="M85 158V196"/><path d="M185 158V196"/><path d="M285 158V196"/><path d="M385 158V196"/><path d="M485 158V196"/><path d="M585 158V196"/>
+  </g>
+  <g fill="#fff" stroke="#0068b5" stroke-width="2">
+    <rect x="30" y="198" width="110" height="192" rx="10"/>
+    <rect x="145" y="198" width="110" height="192" rx="10"/>
+    <rect x="260" y="198" width="110" height="192" rx="10"/>
+    <rect x="375" y="198" width="110" height="192" rx="10"/>
+    <rect x="490" y="198" width="110" height="192" rx="10"/>
+  </g>
+  <g font-size="13" font-weight="600" fill="#00285a" text-anchor="middle">
+    <text x="85" y="222">Install</text><text x="200" y="222">Archive</text><text x="315" y="222">Dashboard</text>
+    <text x="430" y="222">Review</text><text x="545" y="222">Wiki</text>
+  </g>
+  <g fill="#00c7fd">
+    <rect x="45" y="240" width="80" height="10" rx="5"/><rect x="45" y="260" width="62" height="10" rx="5"/><rect x="45" y="280" width="74" height="10" rx="5"/><rect x="45" y="300" width="50" height="10" rx="5"/><rect x="45" y="320" width="70" height="10" rx="5"/><rect x="45" y="340" width="58" height="10" rx="5"/>
+    <rect x="160" y="240" width="80" height="10" rx="5"/><rect x="160" y="260" width="70" height="10" rx="5"/><rect x="160" y="280" width="56" height="10" rx="5"/><rect x="160" y="300" width="76" height="10" rx="5"/><rect x="160" y="320" width="48" height="10" rx="5"/><rect x="160" y="340" width="66" height="10" rx="5"/>
+    <rect x="275" y="240" width="64" height="10" rx="5"/><rect x="275" y="260" width="80" height="10" rx="5"/><rect x="275" y="280" width="72" height="10" rx="5"/><rect x="275" y="300" width="54" height="10" rx="5"/><rect x="275" y="320" width="78" height="10" rx="5"/><rect x="275" y="340" width="60" height="10" rx="5"/>
+    <rect x="390" y="240" width="76" height="10" rx="5"/><rect x="390" y="260" width="52" height="10" rx="5"/><rect x="390" y="280" width="80" height="10" rx="5"/><rect x="390" y="300" width="66" height="10" rx="5"/><rect x="390" y="320" width="58" height="10" rx="5"/><rect x="390" y="340" width="72" height="10" rx="5"/>
+    <rect x="505" y="240" width="58" height="10" rx="5"/><rect x="505" y="260" width="78" height="10" rx="5"/><rect x="505" y="280" width="62" height="10" rx="5"/><rect x="505" y="300" width="80" height="10" rx="5"/><rect x="505" y="320" width="52" height="10" rx="5"/><rect x="505" y="340" width="70" height="10" rx="5"/>
+  </g>
+  <rect x="605" y="198" width="35" height="192" rx="10" fill="#fff" stroke="#6b7280" stroke-dasharray="4 4"/>
+  <text x="622" y="300" text-anchor="middle" font-size="22" fill="#6b7280">+</text>
+  <text x="335" y="408" text-anchor="middle" font-size="13" fill="#4a4a4a">Workers: VERTICAL context, deep in one domain, inside one session</text>
+
+  <rect x="676" y="94" width="154" height="296" rx="12" fill="#fff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="753" y="122" text-anchor="middle" font-size="15" font-weight="700" fill="#00285a">Dashboard</text>
+  <text x="753" y="142" text-anchor="middle" font-size="12" fill="#4a4a4a">Do-next list</text>
+  <g font-size="12" fill="#1e1e1e">
+    <rect x="692" y="160" width="122" height="34" rx="6" fill="#f3f4f6"/><text x="702" y="182">1  my move</text>
+    <rect x="692" y="204" width="122" height="34" rx="6" fill="#f3f4f6"/><text x="702" y="226">2  waiting on</text>
+    <rect x="692" y="248" width="122" height="34" rx="6" fill="#f3f4f6"/><text x="702" y="270">3  review PR</text>
+    <rect x="692" y="292" width="122" height="34" rx="6" fill="#f3f4f6"/><text x="702" y="314">4  tickets</text>
+  </g>
+  <text x="753" y="360" text-anchor="middle" font-size="12" fill="#4a4a4a">fed by Jobs and</text>
+  <text x="753" y="376" text-anchor="middle" font-size="12" fill="#4a4a4a">declarations</text>
+  <path d="M640 126H676" stroke="#6b7280" stroke-width="2" stroke-dasharray="5 4"/>
+</svg>
